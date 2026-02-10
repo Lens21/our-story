@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Our Story ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: #0a0a0a;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+/* Loading Screen - Optimisé */
+#loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 107, 157, 0.3);
+  border-top: 3px solid #ff6b9d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Hero Section */
+#hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, #1a0a1a 0%, #0a0a0a 100%);
+  padding: 20px;
+}
+
+#hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  margin-bottom: 15px;
+  background: linear-gradient(45deg, #ff6b9d, #ffd166);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+#hero p {
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  color: #ffd1dc;
+  margin-bottom: 30px;
+  max-width: 600px;
+}
+
+#startBtn {
+  padding: 16px 45px;
+  font-size: 1.2rem;
+  background: linear-gradient(45deg, #ff1e56, #ff6f91);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(255, 30, 86, 0.3);
+  transition: transform 0.3s ease;
+}
+
+#startBtn:hover {
+  transform: translateY(-3px);
+}
+
+/* Story Scenes */
+.scene {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+  padding: 60px 20px;
+}
+
+.scene.active {
+  opacity: 1;
+}
+
+.scene-content {
+  max-width: 1000px;
+  width: 100%;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.scene h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 20px;
+}
+
+.scene p {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  line-height: 1.5;
+  margin-bottom: 30px;
+  color: #ffd1dc;
+}
+
+/* Media Container - NO CROP */
+.media-container {
+  max-width: min(800px, 90%);
+  margin: 30px auto;
+  border-radius: 15px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+}
+
+.media-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 60vh;
+}
+
+.media-container img {
+  max-width: 100%;
+  max-height: 60vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.media-container video {
+  max-width: 100%;
+  max-height: 60vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* Mood backgrounds */
+.scene[data-mood="nostalgic"] { background: #1a1a2e; }
+.scene[data-mood="romantic"] { background: #33001b; }
+.scene[data-mood="playful"] { background: #2d00aa; }
+.scene[data-mood="intimate"] { background: #4a004a; }
+.scene[data-mood="hopeful"] { background: #003366; }
+.scene[data-mood="warm"] { background: #4a1a00; }
+
+/* Final Scene */
+#final {
+  background: linear-gradient(135deg, #1a0a1a 0%, #33001b 100%);
+}
+
+.valentine-question {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  color: #ff6b9d;
+  margin-bottom: 30px;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.button {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.3s ease;
+  min-width: 200px;
+}
+
+#yesBtn {
+  background: linear-gradient(45deg, #ff1e56, #ff6f91);
+  color: white;
+}
+
+#yesBtn:hover {
+  transform: translateY(-3px);
+}
+
+#noBtn {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Progress indicator */
+#progress {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 100;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  display: none;
+}
+
+.progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+  background: #ff6b9d;
+  transform: scale(1.3);
+}
+
+/* Music indicator */
+#musicIndicator {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ff6b9d;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  display: none;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .buttons {
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  #progress {
+    width: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50px;
+    padding: 15px 25px;
+  }
+  
+  .progress-dot {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scene {
+    padding: 40px 15px;
+  }
+  
+  .media-container {
+    padding: 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+<script>
+
+const password = "Naudee-Xarah";
+let userInput = prompt("Enter password to see our story:");
+if (userInput !== password) {
+  document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top:50vh;'>Access Denied ❌</h1>";
+  throw "Access denied";
+}
+</script>
+
+<!-- Loading Screen -->
+<div id="loading">
+  <div class="loader"></div>
+  <p style="color: #ff6b9d; margin-top: 10px;">Loading our story...</p>
+</div>
+
+<!-- Hero Section -->
+<section id="hero">
+  <h1>Our Story</h1>
+  <p>A connection that survived time and distance</p>
+  <button id="startBtn">Begin Our Journey</button>
+</section>
+
+<!-- Story Container -->
+<div id="storyContainer" style="display: none;">
+  <!-- Scenes will be loaded here -->
+</div>
+
+<!-- Progress Indicator -->
+<div id="progress"></div>
+
+<!-- Music Indicator -->
+<div id="musicIndicator">🎵 Our Song</div>
+
+<!-- Audio -->
+<audio id="music" loop>
+  <source src="audio.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Scenes data with adjusted texts for your photos (0, 01, 03, 05 = you in Haiti)
+const scenesData = [
+  // Scene 1: First meeting in Haiti - YOU (0.jpeg)
+  { mood: "nostalgic", title: "Our Beginning in Haiti", 
+    text: "We met before life took you to Morocco.<br>This was me, waiting for our story to begin.", 
+    media: "01.jpeg" },
+  
+  // Scene 2: Three years of silence - Letters (1.jpeg)
+  { mood: "nostalgic", title: "Three Years Apart", 
+    text: "Time passed without a word.<br>Letters would held all the unspoken words between us.", 
+    media: "10.jpeg" },
+  
+  // Scene 3: The message that changed everything - M1 (S1.jpeg)
+  { mood: "romantic", title: "November 14th - Your Message", 
+    text: "After three years of silence, you reached out.<br>This message brought us back to life.", 
+    media: "M1.jpeg" },
+  
+  // Scene 4: More letters (2.jpeg)
+  { mood: "romantic", title: "Our Written Words", 
+    text: "We started writing to each other again.<br>Every letter bringing us closer across the miles.", 
+    media: "1.jpeg" },
+  
+  // Scene 5: Video calls reconnecting - YOU on video call (S2.jpeg)
+  { mood: "romantic", title: "Seeing Each Other Again", 
+    text: "Our first video call after all that time.<br>Finally seeing your face again after so long.", 
+    media: "S2.jpeg" },
+  
+  // Scene 6: Playing games together - BOTH (V11.mp4)
+  { mood: "playful", title: "Our Virtual Dates", 
+    text: "Playing games together, laughing until 3 AM.<br>Distance meant nothing when we were having fun.", 
+    media: "V11.mp4" },
+  
+  // Scene 7: Your style - HER (01.jpeg) - Actually YOU based on your list
+  { mood: "romantic", title: "Your Style", 
+    text: "This is your style.<br>Sharing parts of yourself with me.", 
+    media: "13.jpeg" },
+  
+  // Scene 8: More of your style - HER (03.jpeg) - Actually YOU
+  { mood: "romantic", title: "My Confidence", 
+    text: "Trying to look confident for you.<br>Wanting to impress you even from afar.", 
+    media: "05.jpeg" },
+  
+  // Scene 9: Your style - HER (05.jpeg) - Actually YOU
+  { mood: "romantic", title: "Being Myself", 
+    text: "Just being me, hoping you'd like what you see.<br>Sharing my world with you.", 
+    media: "V7.mp4" },
+  
+  // Scene 10: HER style (9.jpeg)
+  { mood: "romantic", title: "Your Beautiful Style", 
+    text: "And this is your style in Morocco.<br>Every outfit showing your unique personality.", 
+    media: "9.jpeg" },
+  
+  // Scene 11: HER style (10.jpeg)
+  { mood: "romantic", title: "Your Elegance", 
+    text: "The way you carry yourself speaks volumes.<br>A confidence that's both inspiring and captivating.", 
+    media: "17.jpeg" },
+  
+  // Scene 12: HER style (11.jpeg)
+  { mood: "romantic", title: "Simply Stunning", 
+    text: "Natural beauty that takes my breath away.<br>You glow from within.", 
+    media: "16.jpeg" },
+  
+  // Scene 13: HER style (13.jpeg)
+  { mood: "romantic", title: "Your Unique Fashion", 
+    text: "Every detail tells a story.<br>Your style is as unique as you are.", 
+    media: "13.jpeg" },
+  
+  // Scene 14: HER style video (V7.mp4)
+  { mood: "romantic", title: "You in Motion", 
+    text: "Seeing you move, seeing you live.<br>Every moment is a treasure.", 
+    media: "V10.mp4" },
+  
+  // Scene 15: HER style video (V9.mp4)
+  { mood: "romantic", title: "Your World", 
+    text: "Sharing your world with me.<br>Every glimpse is precious.", 
+    media: "V9.mp4" },
+  
+  // Scene 16: HER style video (V10.mp4)
+  { mood: "romantic", title: "Natural Moments", 
+    text: "Just being yourself.<br>That's when you're most beautiful.", 
+    media: "V3.mp4" },
+  
+  // Scene 17: HER essence (17.jpeg)
+  { mood: "romantic", title: "Your Essence", 
+    text: "Not just a pretty face, but a beautiful soul.<br>Your essence is what captivates me most.", 
+    media: "15.jpeg" },
+  
+  // Scene 18: You at work - HER (V8.mp4)
+  { mood: "hopeful", title: "Even When I'm Busy", 
+    text: "We find time for us even at work.<br>That means more than you know.", 
+    media: "V8.mp4" },
+  
+  // Scene 19: Your commute - HER (V6.mp4)
+  { mood: "hopeful", title: "Your Daily Journey", 
+    text: "Sharing your commute with me.<br>It makes me feel like I'm there with you.", 
+    media: "11.jpeg" },
+  
+  // Scene 20: Silly faces - BOTH (06.jpeg)
+  { mood: "playful", title: "Our Silly Moments", 
+    text: "When we forget the distance and just be silly.<br>These are my favorite memories.", 
+    media: "06.jpeg" },
+  
+  // Scene 21: Silly faces - BOTH (04.jpeg)
+  { mood: "playful", title: "Making Each Other Laugh", 
+    text: "Your silly faces always make me smile.<br>Distance can't take away our laughter.", 
+    media: "7.jpeg" },
+  
+  // Scene 22: Silly faces - BOTH (02.jpeg)
+  { mood: "playful", title: "Pure Joy", 
+    text: "Your laughter is contagious.<br>It heals my soul from 7000 kilometers away.", 
+    media: "04.jpeg" },
+  
+  // Scene 23: More silliness - BOTH (6.jpeg)
+  { mood: "playful", title: "Just Having Fun", 
+    text: "No pretenses, just pure fun.<br>This is us at our best.", 
+    media: "6.jpeg" },
+  
+  // Scene 24: Even more fun - BOTH (7.jpeg)
+  { mood: "playful", title: "Happy Together", 
+    text: "These moments of pure happiness.<br>They make the distance feel insignificant.", 
+    media: "06.jpeg" },
+  
+  // Scene 25: Last silly moment - BOTH (8.jpeg)
+  { mood: "playful", title: "Our Connection", 
+    text: "Through laughter and silly faces.<br>We built something special.", 
+    media: "S1.jpeg" },
+  
+  // Scene 26: You reading to me - HER (V4.mp4)
+  { mood: "intimate", title: "Your Voice", 
+    text: "You reading to me before bed.<br>Your voice is my lullaby.", 
+    media: "V4.mp4" },
+  
+  // Scene 27: More reading - HER (V5.mp4)
+  { mood: "intimate", title: "Calming Presence", 
+    text: "Even through a screen, you bring me peace.<br>Your words soothe my soul.", 
+    media: "V5.mp4" },
+  
+  // Scene 28: Your hair routine - HER (V1.mp4)
+  { mood: "intimate", title: "Your Hair Rituals", 
+    text: "Watching you care for your beautiful hair.<br>There's something intimate about seeing your routines.", 
+    media: "V1.mp4" },
+  
+  // Scene 29: Your nails - HER (V2.mp4)
+  { mood: "intimate", title: "Attention to Detail", 
+    text: "The care you put into everything you do.<br>Even your nails tell a story of perfection.", 
+    media: "V2.mp4" },
+  
+  // Scene 30: More beauty routines - HER (V3.mp4)
+  { mood: "intimate", title: "Your Self-Care", 
+    text: "The little things that make you, you.<br>I could watch your routines for hours.", 
+    media: "V3.mp4" },
+  
+  // Scene 31: Nail photo - HER (15.jpeg)
+  { mood: "intimate", title: "Beautiful Details", 
+    text: "Every detail about you is beautiful.<br>Even the smallest things.", 
+    media: "V2.mp4" },
+  
+  // Scene 32: Another moment - HER (9.jpeg again)
+  { mood: "intimate", title: "Peaceful You", 
+    text: "Your calm moments are my favorite.<br>You're beautiful in your stillness.", 
+    media: "9.jpeg" },
+  
+  // Scene 33: Your daily life - streets - HER (14.jpeg)
+  { mood: "hopeful", title: "Your Streets in Morocco", 
+    text: "The places you walk, the air you breathe.<br>I wish I could be there with you.", 
+    media: "14.jpeg" },
+  
+  // Scene 34: More daily life - HER (V6.mp4 again)
+  { mood: "hopeful", title: "Our Parallel Lives", 
+    text: "Different cities, same connection.<br>Our hearts beat as one.", 
+    media: "V6.mp4" },
+  
+  // Scene 35: Beautiful you - HER (16.jpeg)
+  { mood: "romantic", title: "Radiant You", 
+    text: "You glow from within.<br>A light that brightens even my darkest days.", 
+    media: "17.jpeg" },
+  
+  // Scene 36: More of you in Haiti - YOU (0.jpeg again)
+  { mood: "warm", title: "Me in Haiti", 
+    text: "While you're in Morocco, I'm here in Haiti.<br>Thinking of you every day.", 
+    media: "0.jpeg" },
+  
+  // Scene 37: Final question
+  { mood: "romantic", title: "My Heart's Question", 
+    text: "Would you be my Valentine? ❤️", 
+    media: null }
+];
+
+document.addEventListener('DOMContentLoaded', function() {
+  const loading = document.getElementById('loading');
+  const hero = document.getElementById('hero');
+  const storyContainer = document.getElementById('storyContainer');
+  const startBtn = document.getElementById('startBtn');
+  const progress = document.getElementById('progress');
+  const music = document.getElementById('music');
+  const musicIndicator = document.getElementById('musicIndicator');
+  
+  let currentScene = 0;
+  let isAutoScrolling = false;
+  let sceneTimers = [];
+  let storyEnded = false;
+  const sceneDuration = 5000; // 5 seconds per scene
+  
+  // Hide loading quickly
+  setTimeout(() => {
+    loading.style.opacity = '0';
+    setTimeout(() => {
+      loading.style.display = 'none';
+    }, 300);
+  }, 800);
+  
+  // Create all scenes
+  function createScenes() {
+    scenesData.forEach((scene, index) => {
+      const sceneElement = document.createElement('div');
+      sceneElement.className = 'scene';
+      sceneElement.dataset.mood = scene.mood;
+      sceneElement.id = `scene-${index}`;
+      
+      let mediaHTML = '';
+      if (scene.media) {
+        if (scene.media.endsWith('.mp4')) {
+          mediaHTML = `
+            <div class="media-container">
+              <div class="media-wrapper">
+                <video src="${scene.media}" muted playsinline loop></video>
+              </div>
+            </div>
+          `;
+        } else {
+          mediaHTML = `
+            <div class="media-container">
+              <div class="media-wrapper">
+                <img src="${scene.media}" alt="${scene.title}" loading="lazy">
+              </div>
+            </div>
+          `;
+        }
+      }
+      
+      // For final scene, add buttons
+      let finalContent = '';
+      if (index === scenesData.length - 1) {
+        finalContent = `
+          <div class="valentine-question">${scene.text}</div>
+          <div class="buttons">
+            <button class="button" id="yesBtn">YES, with all my heart ❤️</button>
+            <button class="button" id="noBtn">I need to think...</button>
+          </div>
+        `;
+      } else {
+        finalContent = `
+          <h2>${scene.title}</h2>
+          <p>${scene.text}</p>
+          ${mediaHTML}
+        `;
+      }
+      
+      sceneElement.innerHTML = `
+        <div class="scene-content">
+          ${finalContent}
+        </div>
+      `;
+      
+      storyContainer.appendChild(sceneElement);
+    });
+  }
+  
+  // Start the story
+  function startStory() {
+    hero.style.display = 'none';
+    storyContainer.style.display = 'block';
+    progress.style.display = 'flex';
+    musicIndicator.style.display = 'block';
+    
+    // Create progress dots
+    scenesData.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.className = 'progress-dot';
+      dot.dataset.index = index;
+      dot.addEventListener('click', () => {
+        stopAutoScroll();
+        goToScene(index);
+      });
+      progress.appendChild(dot);
+    });
+    
+    // Start music
+    music.volume = 0.3;
+    music.play().catch(e => {
+      console.log("Music will start after user interaction");
+    });
+    
+    // Start auto-scroll
+    startAutoScroll();
+  }
+  
+  // Auto-scroll through scenes
+  function startAutoScroll() {
+    if (isAutoScrolling) return;
+    
+    isAutoScrolling = true;
+    goToScene(0);
+    
+    // Auto-advance scenes
+    scenesData.forEach((scene, index) => {
+      if (index < scenesData.length - 1) {
+        const timer = setTimeout(() => {
+          if (isAutoScrolling && currentScene === index && !storyEnded) {
+            goToScene(index + 1);
+          }
+        }, sceneDuration * (index + 1));
+        
+        sceneTimers.push(timer);
+      }
+    });
+    
+    // Schedule music stop at the end
+    const finalTimer = setTimeout(() => {
+      if (isAutoScrolling) {
+        storyEnded = true;
+        fadeOutMusic();
+      }
+    }, sceneDuration * (scenesData.length - 1));
+    
+    sceneTimers.push(finalTimer);
+  }
+  
+  // Fade out music
+  function fadeOutMusic() {
+    if (music.paused) return;
+    
+    const fadeInterval = setInterval(() => {
+      if (music.volume > 0.05) {
+        music.volume -= 0.05;
+      } else {
+        music.pause();
+        music.volume = 0.3;
+        clearInterval(fadeInterval);
+        musicIndicator.style.display = 'none';
+      }
+    }, 100);
+  }
+  
+  // Stop auto-scroll
+  function stopAutoScroll() {
+    isAutoScrolling = false;
+    sceneTimers.forEach(timer => clearTimeout(timer));
+    sceneTimers = [];
+  }
+  
+  // Go to specific scene
+  function goToScene(index) {
+    if (index < 0 || index >= scenesData.length) return;
+    
+    // Pause all videos
+    document.querySelectorAll('video').forEach(video => {
+      video.pause();
+    });
+    
+    // Update scene visibility
+    scenesData.forEach((scene, i) => {
+      const sceneElement = document.getElementById(`scene-${i}`);
+      if (sceneElement) {
+        sceneElement.classList.remove('active');
+        if (i === index) {
+          sceneElement.classList.add('active');
+          
+          // Play video if this scene has one
+          const video = sceneElement.querySelector('video');
+          if (video) {
+            video.currentTime = 0;
+            video.play().catch(e => console.log("Video play error"));
+          }
+          
+          // Scroll to scene
+          sceneElement.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }
+    });
+    
+    // Update progress dots
+    document.querySelectorAll('.progress-dot').forEach((dot, i) => {
+      dot.classList.remove('active');
+      if (i === index) {
+        dot.classList.add('active');
+      }
+    });
+    
+    currentScene = index;
+    
+    // If we reach final scene, stop auto-scroll and fade music
+    if (index === scenesData.length - 1) {
+      stopAutoScroll();
+      storyEnded = true;
+      fadeOutMusic();
+    }
+  }
+  
+  // Event Listeners
+  startBtn.addEventListener('click', startStory);
+  
+  // Valentine buttons (added dynamically)
+  document.addEventListener('click', function(e) {
+    if (e.target.id === 'yesBtn') {
+      createConfetti();
+      e.target.textContent = "I LOVE YOU! ❤️";
+      e.target.style.background = "linear-gradient(45deg, #00ff88, #00ccff)";
+      e.target.style.transform = "scale(1.1)";
+      
+      setTimeout(() => {
+        alert("You've made me the happiest person in the world! ❤️\n\nOur story continues, more beautiful than ever...");
+      }, 1000);
+    }
+    
+    if (e.target.id === 'noBtn') {
+      e.target.textContent = "Okay, maybe... ❤️";
+      e.target.style.background = "linear-gradient(45deg, #ff6b9d, #ffd166)";
+      e.target.style.color = "white";
+      e.target.style.border = "none";
+    }
+  });
+  
+  // No button hover effect
+  document.addEventListener('mouseover', function(e) {
+    if (e.target.id === 'noBtn') {
+      const btn = e.target;
+      const maxX = window.innerWidth - btn.offsetWidth;
+      const maxY = window.innerHeight - btn.offsetHeight;
+      
+      btn.style.position = 'fixed';
+      btn.style.left = Math.random() * maxX + 'px';
+      btn.style.top = Math.random() * maxY + 'px';
+      
+      const texts = ["Are you sure?", "Really?", "Think again...", "❤️?", "Please?"];
+      btn.textContent = texts[Math.floor(Math.random() * texts.length)];
+    }
+  });
+  
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (storyEnded) return;
+    
+    switch(e.key) {
+      case 'ArrowRight':
+      case ' ':
+        if (currentScene < scenesData.length - 1) {
+          stopAutoScroll();
+          goToScene(currentScene + 1);
+        }
+        break;
+      case 'ArrowLeft':
+        if (currentScene > 0) {
+          stopAutoScroll();
+          goToScene(currentScene - 1);
+        }
+        break;
+    }
+  });
+  
+  // Confetti effect
+  function createConfetti() {
+    const colors = ['#ff6b9d', '#ffd166', '#06d6a0', '#118ab2', '#ff6f91'];
+    
+    for (let i = 0; i < 100; i++) {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'fixed';
+      confetti.style.width = '8px';
+      confetti.style.height = '8px';
+      confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.borderRadius = '50%';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.top = '-20px';
+      confetti.style.zIndex = '9999';
+      confetti.style.pointerEvents = 'none';
+      
+      document.body.appendChild(confetti);
+      
+      const animation = confetti.animate([
+        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+        { transform: `translateY(${window.innerHeight + 20}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+      ], {
+        duration: Math.random() * 3000 + 2000,
+        easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+      });
+      
+      animation.onfinish = () => confetti.remove();
+    }
+  }
+  
+  // Create scenes immediately
+  createScenes();
+  
+  // Auto-start music on first interaction
+  document.addEventListener('click', function initMusic() {
+    if (music.paused) {
+      music.volume = 0.3;
+      music.play().catch(console.error);
+      musicIndicator.style.display = 'block';
+    }
+    document.removeEventListener('click', initMusic);
+  }, { once: true });
+});
+</script>
+</body>
+</html>
